@@ -7,14 +7,20 @@ var path = require('path');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+
+
 // global config
 var app = express();
+var io = require('socket.io').listen(app);
+
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.set('view options',{layout: false});
 
-app.use(express.logger())
+
+
+//app.use(express.logger())
 app.use(express.favicon());
 app.use(express.bodyParser());
 app.use(express.methodOverride());

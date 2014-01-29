@@ -1,0 +1,48 @@
+@font-face { font-family: Josefin; src: url('JosefinSlab-Regular.ttf'); } 
+
+
+html,body{
+
+	width:100%;
+	padding:0px;
+	margin:0px;
+
+}
+
+#main_div{
+
+	margin-left:auto;
+	margin-right:auto;
+	border:1px solid black;
+
+
+}
+
+#content{
+
+	margin-left:auto;
+	margin-right:auto;
+	width:200px;
+
+}
+
+#title{
+
+	font-family: 'Josefin',sans-serif;
+}
+
+#register_container_div{
+
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;
+}
+
+#register_content{
+	
+	margin-top:100px;
+	margin-left:auto;
+	margin-right:auto;
+	max-width:350px;
+
+}
