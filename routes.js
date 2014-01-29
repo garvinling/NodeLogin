@@ -44,7 +44,10 @@ module.exports = function (app) {
 
 
   app.post('/login', passport.authenticate('local'), function(req, res) {
-      console.log("Req: " +req.user.username);
+
+      //TODO: add in success/failure redirect for passport
+      req.session.user = req.user.username;
+      console.log("Session User: " +req.session.user);
       res.redirect('/'+req.user.username);
   
   });

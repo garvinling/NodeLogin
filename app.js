@@ -22,9 +22,12 @@ app.set('view options',{layout: false});
 
 //app.use(express.logger())
 app.use(express.favicon());
+app.use(express.cookieParser("thissecretrocks"));
+
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
+app.use(express.session({ secret: 'thissecretrocks', cookie: { maxAge: 60000 } }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
