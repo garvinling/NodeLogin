@@ -4,11 +4,28 @@ var active_user = "";
 module.exports = function (app) {
 
   app.get('/', function (req, res) {
+      
+      if(!req.user)
+      {
+        console.log("No users");
+        res.sendfile('views/landing.html');
+      }
+      else
+      {
+        console.log("User logged in: " +req.user.username);
+        req.session.user = req.user.username;
+        res.sendfile('views/index.html', { user : req.user });
 
-      res.sendfile('views/index.html', { user : req.user });
+      }
   });
 
 
+
+  
+  app.post('/',
+    passport.authenticate('local',{successRedirect:'/',failureRedirect:'/'}),function(req,res){
+
+  });
 
 
   app.get('/register', function(req, res) {
@@ -16,9 +33,6 @@ module.exports = function (app) {
   });
 
   
-
-
-
   app.post('/register', function(req, res) {
     Account.register(new Account({ username : req.body.username, firstName:req.body.firstname, email:req.body.email}), req.body.password, function(err, account) {
         if (err) {
@@ -33,8 +47,6 @@ module.exports = function (app) {
 
   
 
-
-
   app.get('/login', function(req, res) {
      // res.render('login', { user : req.user });
       res.sendfile('views/login.html',{user:req.user});
@@ -42,24 +54,23 @@ module.exports = function (app) {
 
   
 
+  app.post('/login',
+    passport.authenticate('local',{successRedirect:'/',failureRedirect:'/login'}),function(req,res){
 
-  app.post('/login', passport.authenticate('local'), function(req, res) {
-
-      //TODO: add in success/failure redirect for passport
-      req.session.user = req.user.username;
-      console.log("Session User: " +req.session.user);
-      res.redirect('/'+req.user.username);
-  
   });
-
-  
 
 
 
   app.get('/logout', function(req, res) {
-      req.logout();
+      //req.logout();
+      
+      delete req.session.user;
+      var active_user = "";
       res.redirect('/');
   });
+
+
+
 
   app.get('/ping', function(req, res){
       res.send("pong!", 200);
