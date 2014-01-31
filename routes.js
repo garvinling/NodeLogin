@@ -5,7 +5,7 @@ module.exports = function (app) {
 
   app.get('/', function (req, res) {
       
-      if(!req.user)
+      if(!req.session.user)
       {
         console.log("No users");
         res.sendfile('views/landing.html');
@@ -23,7 +23,10 @@ module.exports = function (app) {
 
   
   app.post('/',
-    passport.authenticate('local',{successRedirect:'/',failureRedirect:'/'}),function(req,res){
+    passport.authenticate('local'),function(req,res){
+
+      req.session.user=req.user.username;
+      res.sendfile('views/index.html');
 
   });
 
@@ -32,9 +35,12 @@ module.exports = function (app) {
       res.sendfile('views/register.html', { });
   });
 
+
+
   
   app.post('/register', function(req, res) {
     Account.register(new Account({ username : req.body.username, firstName:req.body.firstname, email:req.body.email}), req.body.password, function(err, account) {
+        
         if (err) {
             return res.sendfile('views/register.html', { account : account });
             console.log("Something went wrong");
@@ -46,6 +52,8 @@ module.exports = function (app) {
   });
 
   
+
+
 
   app.get('/login', function(req, res) {
      // res.render('login', { user : req.user });
@@ -63,8 +71,9 @@ module.exports = function (app) {
 
   app.get('/logout', function(req, res) {
       //req.logout();
-      
+      console.log("Logout hit.");
       delete req.session.user;
+      delete req.user;
       var active_user = "";
       res.redirect('/');
   });

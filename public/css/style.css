@@ -48,6 +48,15 @@ h2{
 
 }
 
+#input_field{
+
+	font-family: 'Freight',sans-serif;
+	font-size:21px;
+
+
+}
+
+
 
 #login_button{
 
@@ -55,6 +64,7 @@ h2{
 	border:#2ecc71;
 	width:200px;
 	height:43px;
+	font-size:18px;
 	font-family: 'Freight',sans-serif;
 
 }
