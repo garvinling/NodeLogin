@@ -21,5 +21,16 @@ $(document).ready(function(){
   });
 
 
+  /** Function for login validation **/
+  $("#login_form_button").click(function(){
 
+  		var username_field = $("#input_field_name").val();
+  		var password_field = $("#input_field_pw").val();
+
+
+  		if(username_field.length == 0)
+  		{
+  			//alert("User name can't be blank");
+  		}
+  });
 });

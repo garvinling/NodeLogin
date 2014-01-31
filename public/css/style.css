@@ -48,7 +48,7 @@ h2{
 
 }
 
-#input_field{
+#input_field_name, #input_field_pw{
 
 	font-family: 'Freight',sans-serif;
 	font-size:21px;
