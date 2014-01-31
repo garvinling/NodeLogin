@@ -4,7 +4,7 @@ var active_user = "";
 module.exports = function (app) {
 
   app.get('/', function (req, res) {
-      
+
       if(!req.session.user)
       {
         console.log("No users");
@@ -12,27 +12,32 @@ module.exports = function (app) {
       }
       else
       {
-        console.log("User logged in: " +req.user.username);
-        req.session.user = req.user.username;
         res.sendfile('views/index.html', { user : req.user });
 
       }
   });
 
+  app.get('/setuser',function(req,res){
+
+    req.session.user = req.user.username;
+    console.log("Session: " +req.user.username);
+    res.redirect('/');
+
+  });
 
 
-  
   app.post('/',
-    passport.authenticate('local'),function(req,res){
+    passport.authenticate('local',{successRedirect:'/setuser',failureRedirect:'/'}),function(req,res){
 
-      req.session.user=req.user.username;
-      res.sendfile('views/index.html');
+
 
   });
 
 
   app.get('/register', function(req, res) {
+     
       res.sendfile('views/register.html', { });
+  
   });
 
 

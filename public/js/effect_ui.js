@@ -28,9 +28,12 @@ $(document).ready(function(){
   		var password_field = $("#input_field_pw").val();
 
 
-  		if(username_field.length == 0)
+  		if(username_field.length !=0 && password_field != 0)
   		{
   			//alert("User name can't be blank");
+  			
+  			$("body").fadeOut(1800);
+
   		}
   });
 });
